@@ -37,12 +37,73 @@ los mismos.
 
 # Construccion de modelos
 
+def newCatalog():
+
+    """
+
+    Inicializa el catálogo de videos.  Retorna el catalogo inicializado.
+
+    """
+
+    catalog = {'videos': None,
+
+               'category': None,}
+
+ 
+
+    catalog['videos'] = lt.newList()
+
+    catalog['category'] = lt.newList('ARRAY_LIST',
+
+                                    cmpfunction=comparecategory )
+
+    catalog['canales'] = lt.newList('ARRAY_LIST',
+
+                                    cmpfunction=comparecanal )
+
+    return catalog
+
 # Funciones para agregar informacion al catalogo
-def addVideo(catalog, video):
-    pass
+
+def addVideo(catalog,video):
+
+    # Se adiciona el video a la lista de videos
+
+    lt.addLast(catalog['videos'], video)
+
+    # Se obtiene 
+
+    canales = video['channel_title'].split(",")
+
+    # Cada autor, se crea en la lista de libros del catalogo, y se
+
+    # crea un libro en la lista de dicho autor (apuntador al libro)
+
+    for canal in canales:
+
+        addVideoscanal(catalog, canal.strip(), video)
+
+ def addVideoscanal(catalog, canal , video):
+
+    """
+    Adiciona un canal a lista de canales, la cual guarda referencias
+    a los videos de dicho canal
+    """
+    canales = catalog['canales']
+    poscanal = lt.isPresent(canales, canal)
+    if poscanal > 0:
+        author = lt.getElement(canales, poscanal)
+    else:
+        author = newCanal(canal)
+        lt.addLast(canales, author)
+    lt.addLast(author['canales'], video)
 
 def addCategory(catalog, video):
-    pass
+    """
+    Adiciona un categoria a lista de categorias
+    """
+    t = newcategory(category['idname'])
+    lt.addLast(catalog['category'], t)
 
 # Funciones para creacion de datos
 
