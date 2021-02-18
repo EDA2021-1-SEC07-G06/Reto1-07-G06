@@ -77,7 +77,7 @@ def printTrendingVideos(videos):
         print(' Estos son los mejores videos: ')
         for video in lt.iterator(videos):
             print('Titulo: ' + video['title'] + '  Canal: ' +
-                  video['cannel_title'] + ' : ' + video['country' +]
+                  video['cannel_title'] + ' : ' + video['country'] +
                   video['views'] + video['likes'] + video['dislikes'])
     else:
         print('No se encontraron videos')
