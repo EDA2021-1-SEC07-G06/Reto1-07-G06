@@ -56,19 +56,26 @@ def loadData(catalog):
     """
     controller.loadData(catalog)
 
-def printVideoData(title):
+def printCountryData(title):
     if video:
-        print('Total de videos: ' + str(lt.size(video['title'])))
         print('Video encontrado: ' + video['title'])
         print('Canal: ' + video['cannel_title'])
-        print('Fecha: ' + video['trending_date'])
         print('País: ' + video['country'])
-        print('Reproducciones: ' + video['views'])
-        print('Likes: ' + video['likes'])
-        print('Dislikes: ' + video['dislikes'])
+        print('Número de días: ' + video['dias'])
         
     else:
-        print('No se encontro el video')
+        print('No se encontro video')
+
+
+def printCategoryData(title):
+    if video:
+        print('Video encontrado: ' + video['title'])
+        print('Canal: ' + video['cannel_title'])
+        print('Categoria-id: ' + video['category_id'])
+        print('Número de días: ' + video['dias'])
+        
+    else:
+        print('No se encontro video')
 
 
 def printTrendingVideos(videos):
@@ -76,13 +83,29 @@ def printTrendingVideos(videos):
     if size:
         print(' Estos son los mejores videos: ')
         for video in lt.iterator(videos):
-            print('Titulo: ' + video['title'] + '  Canal: ' +
-                  video['cannel_title'] + ' : ' + video['country'] +
-                  video['views'] + video['likes'] + video['dislikes'])
+            print( 'Fecha de tendencia: ' + video['trending_date'] + 
+                   ' Titulo: ' + video['title'] + '  Canal: ' + video['cannel_title'] +
+                   ' Tiempo de publicación: ' + video['publish_time'] +
+                   ' Vistas: ' +video['views'] + ' Likes: ' +video['likes'] + 
+                   ' Dislikes: ' + video['dislikes'])
     else:
         print('No se encontraron videos')
 
-catalog = None
+
+def printTagData(videos):
+    size = lt.size(videos)
+    if size:
+        print(' Estos son los mejores videos: ')
+        for video in lt.iterator(videos):
+            print( 'Fecha de tendencia: ' + video['trending_date'] + 
+                   ' Titulo: ' + video['title'] + '  Canal: ' + video['cannel_title'] +
+                   ' Tiempo de publicación: ' + video['publish_time'] +
+                   ' Vistas: ' +video['views'] + ' Likes: ' +video['likes'] + 
+                   ' Dislikes: ' + video['dislikes'] + ' Tags: ' + video['tags'])
+    else:
+        print('No se encontraron videos')
+
+#catalog = None
 
 """
 Menu principal
@@ -116,8 +139,9 @@ while True:
     elif int(inputs[0]) == 5:
         tag = input("Ingrese el tag a consultar: ")
         countryname = input("Nombre del país: ")
+        n = input("Ingrese el número de videos que quiere listar")
         mas_likes = controller.getVideosByLikes(catalog, tag, countryname)
-        printLikesData(video)
+        printTagData(video)
 
     else:
         sys.exit(0)
