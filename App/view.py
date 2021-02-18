@@ -70,7 +70,20 @@ def printVideoData(title):
     else:
         print('No se encontro el video')
 
-       
+
+def printTrendingVideos(videos):
+    size = lt.size(videos)
+    if size:
+        print(' Estos son los mejores videos: ')
+        for video in lt.iterator(videos):
+            print('Titulo: ' + video['title'] + '  Canal: ' +
+                  video['cannel_title'] + ' : ' + video['country' +]
+                  video['views'] + video['likes'] + video['dislikes'])
+    else:
+        print('No se encontraron videos')
+
+catalog = None
+
 """
 Menu principal
 """
