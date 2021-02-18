@@ -78,6 +78,13 @@ def sortVideos(catalog):
 
 # Funciones de consulta sobre el catálogo
 
+def getTrendingVideos(catalog, category_name, country, n):
+    """
+    Retorna los videos trending
+    """
+    trending = model.TrendingVideos(catalog, category_name, country, n)
+    return trending
+
 def getVideosByCategory(catalog, category_name):
     """
     Retorna los videos de una categoría
@@ -85,18 +92,18 @@ def getVideosByCategory(catalog, category_name):
     category = model.VideosByCategory(catalog, category_name)
     return category
 
-def getVideosByCountry(catalog, country):
+def getVideosByCountry(catalog, countryname):
     """
     Retorna los videos de un país
     """
-    country = model.getVideosByCountry(catalog, countryname):
+    country = model.getVideosByCountry(catalog, countryname)
     return country
 
 
-def getVideosByLikes(catalog, tag, countryname):
+def getVideosByLikes(catalog, n, countryname, tag):
     """
     Retorna los videos con más likes
     """
-    likes = model.getBooksByLikes(catalog, likes)
+    likes = model.getVideosByLikes(catalog, n, countryname, tag)
     return likes
 

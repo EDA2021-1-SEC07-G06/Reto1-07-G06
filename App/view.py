@@ -140,7 +140,7 @@ while True:
         tag = input("Ingrese el tag a consultar: ")
         countryname = input("Nombre del país: ")
         n = input("Ingrese el número de videos que quiere listar")
-        mas_likes = controller.getVideosByLikes(catalog, tag, countryname)
+        mas_likes = controller.getVideosByLikes(catalog, n, countryname, tag)
         printTagData(video)
 
     else:
