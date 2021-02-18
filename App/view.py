@@ -64,8 +64,8 @@ def printVideoData(title):
         print('Fecha: ' + video['trending_date'])
         print('País: ' + video['country'])
         print('Reproducciones: ' + video['views'])
-        print('Likes: ' + videos['likes'])
-        print('Dislikes: ' + videos['dislikes'])
+        print('Likes: ' + video['likes'])
+        print('Dislikes: ' + video['dislikes'])
         
     else:
         print('No se encontro el video')
@@ -88,23 +88,23 @@ while True:
         category_name = input("Ingrese la categoría a consultar")
         n = input("Ingrese el número de videos que quiere listar")
         video = controller.getTrendingVideos(catalog, category_name, country, n)
-        printTrendingVideos(videos)
+        printTrendingVideos(video)
 
     elif int(inputs[0]) == 3:
         countryname = input("Nombre del país: ")
         country = controller.getVideosByCountry(catalog, countryname)
-        printCountryData(videos)
+        printCountryData(video)
 
     elif int(inputs[0]) == 4:
         category_name = input("Ingrese la categoría: ")
         category = controller.getVideosByCategory(catalog, category_name)
-        printCategoryData(videos)
+        printCategoryData(video)
 
     elif int(inputs[0]) == 5:
         tag = input("Ingrese el tag a consultar: ")
         countryname = input("Nombre del país: ")
         mas_likes = controller.getVideosByLikes(catalog, tag, countryname)
-        printLikesData(videos)
+        printLikesData(video)
 
     else:
         sys.exit(0)
