@@ -50,12 +50,10 @@ def loadData(catalog):
 
 def loadVideos(catalog):
     """
-    Carga los libros del archivo.  Por cada libro se toman sus autores y por
-    cada uno de ellos, se crea en la lista de autores, a dicho autor y una
-    referencia al libro que se esta procesando.
+    Carga los videos del archivo.
     """
     videosfile = cf.data_dir + 'Videos/videos-small.csv'
-    input_file = csv.DictReader(open(vieosfile, encoding='utf-8'))
+    input_file = csv.DictReader(open(videosfile, encoding='utf-8'))
     for video in input_file:
         model.addVideo(catalog, video)
 
@@ -82,22 +80,22 @@ def sortVideos(catalog):
 
 def getVideosByCategory(catalog, category_name):
     """
-    Retrona los videos de una categoría
+    Retorna los videos de una categoría
     """
-    category = model.getBooksByCategory(catalog, category)
+    category = model.VideosByCategory(catalog, category_name)
     return category
 
-def getVideosByCountry(catalog, category_name):
+def getVideosByCountry(catalog, country):
     """
-    Retrona los videos de un país
+    Retorna los videos de un país
     """
-    country = model.getBooksByCountry(catalog, country)
+    country = model.getVideosByCountry(catalog, countryname):
     return country
 
 
-def getVideosByLikes(catalog, category_name):
+def getVideosByLikes(catalog, tag, countryname):
     """
-    Retrona los videos con más likes
+    Retorna los videos con más likes
     """
     likes = model.getBooksByLikes(catalog, likes)
     return likes
