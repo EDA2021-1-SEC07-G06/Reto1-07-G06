@@ -87,7 +87,7 @@ def getVideosByCategory(catalog, category_name):
     category = model.getBooksByCategory(catalog, category)
     return category
 
-def getVideosByCountry
+def getVideosByCountry(catalog, category_name):
     """
     Retrona los videos de un país
     """
@@ -95,7 +95,7 @@ def getVideosByCountry
     return country
 
 
-def getVideosByLikes
+def getVideosByLikes(catalog, category_name):
     """
     Retrona los videos con más likes
     """
