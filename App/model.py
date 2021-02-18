@@ -38,10 +38,27 @@ los mismos.
 # Construccion de modelos
 
 # Funciones para agregar informacion al catalogo
+def addVideo(catalog, video):
+    pass
+
+def addCategory(catalog, video):
+    pass
 
 # Funciones para creacion de datos
 
 # Funciones de consulta
+
+def getTrendingVideos(catalog, category_name, country, n):
+    pass
+
+def getVideosByCategory (catalog, category_name):
+    pass
+
+def getVideosByCountry (catalog, countryname):
+    pass
+
+def getVideosByLikes(catalog, n, countryname, tag):
+    pass
 
 # Funciones utilizadas para comparar elementos dentro de una lista
 
