@@ -37,10 +37,40 @@ operación solicitada
 def printMenu():
     print("Bienvenido")
     print("1- Cargar información en el catálogo")
-    print("2- ")
+    print("2- Consultar videos tendencia por categoría y país ")
+    print("3- Consultar video tendencia por país")
+    print("4- Consultar video tendencia por categoría")
+    print("5- Videos con más likes")
+    print("0- Salir")
 
-catalog = None
 
+def initCatalog():
+    """
+    Inicializa el catalogo de videos
+    """
+    return controller.initCatalog()
+
+def loadData(catalog):
+    """
+    Carga los videos en la estructura de datos
+    """
+    controller.loadData(catalog)
+
+def printVideoData(title):
+    if video:
+        print('Total de videos: ' + str(lt.size(video['title'])))
+        print('Video encontrado: ' + video['title'])
+        print('Canal: ' + video['cannel_title'])
+        print('Fecha: ' + video['trending_date'])
+        print('País: ' + video['country'])
+        print('Reproducciones: ' + video['views'])
+        print('Likes: ' + videos['likes'])
+        print('Dislikes: ' + videos['dislikes'])
+        
+    else:
+        print('No se encontro el video')
+
+       
 """
 Menu principal
 """
@@ -49,10 +79,34 @@ while True:
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 1:
         print("Cargando información de los archivos ....")
+        catalog = initCatalog()
+        loadData(catalog)
+        print('Videos cargados: ' + str(lt.size(catalog['title'])))
 
     elif int(inputs[0]) == 2:
-        pass
+        country = input("Ingrese el país a consultar")
+        category_name = input("Ingrese la categoría a consultar")
+        n = input("Ingrese el número de videos que quiere listar")
+        video = controller.getTrendingVideos(catalog, category_name, country, n)
+        printTrendingVideos(videos)
+
+    elif int(inputs[0]) == 3:
+        countryname = input("Nombre del país: ")
+        country = controller.getVideosByCountry(catalog, countryname)
+        printCountryData(videos)
+
+    elif int(inputs[0]) == 4:
+        category_name = input("Ingrese la categoría: ")
+        category = controller.getVideosByCategory(catalog, category_name)
+        printCategoryData(videos)
+
+    elif int(inputs[0]) == 5:
+        tag = input("Ingrese el tag a consultar: ")
+        countryname = input("Nombre del país: ")
+        mas_likes = controller.getVideosByLikes(catalog, tag, countryname)
+        printLikesData(videos)
 
     else:
         sys.exit(0)
 sys.exit(0)
+
