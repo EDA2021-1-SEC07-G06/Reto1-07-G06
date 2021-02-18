@@ -74,21 +74,31 @@ def loadCategory(catalog):
 
 def sortVideos(catalog):
     """
-    Ordena los libros por average_rating
+    Ordena los videos por trending_date
     """
     model.sortVideos(catalog)
 
 # Funciones de consulta sobre el catálogo
 
 def getVideosByCategory(catalog, category_name):
-    pass
+    """
+    Retrona los videos de una categoría
+    """
+    category = model.getBooksByCategory(catalog, category)
+    return category
 
 def getVideosByCountry
-    pass
+    """
+    Retrona los videos de un país
+    """
+    country = model.getBooksByCountry(catalog, country)
+    return country
 
-def getVideosByCategory
-    pass
 
 def getVideosByLikes
-    pass
+    """
+    Retrona los videos con más likes
+    """
+    likes = model.getBooksByLikes(catalog, likes)
+    return likes
 
