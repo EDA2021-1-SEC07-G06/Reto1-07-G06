@@ -29,6 +29,7 @@ import config as cf
 from DISClib.ADT import list as lt
 from DISClib.Algorithms.Sorting import shellsort as sa
 assert cf
+import time
 
 """
 Se define la estructura de un catálogo de videos. El catálogo tendrá dos listas, una para los videos, otra para las categorias de
@@ -37,7 +38,7 @@ los mismos.
 
 # Construccion de modelos
 
-def newCatalog():
+def newCatalog(tipoLista):
 
     """
 
@@ -45,21 +46,12 @@ def newCatalog():
 
     """
 
-    catalog = {'videos': None,
-
-               'category': None,}
+    catalog = {'videos': None, 'category': None,}
 
  
 
-    catalog['videos'] = lt.newList()
-
-    catalog['category'] = lt.newList('ARRAY_LIST',
-
-                                    cmpfunction=comparecategory )
-
-    catalog['canales'] = lt.newList('ARRAY_LIST',
-
-                                    cmpfunction=comparecanal )
+    catalog['videos'] = lt.newList(tipoLista, cmpfunction= cmpVideosByViews)
+    catalog['category'] = lt.newList()
 
     return catalog
 
@@ -71,39 +63,46 @@ def addVideo(catalog,video):
 
     lt.addLast(catalog['videos'], video)
 
-    # Se obtiene 
+    # Se obtiene la categoria del libro 
 
-    canales = video['channel_title'].split(",")
+    ident = video['category_id'].split(",")
 
-    # Cada autor, se crea en la lista de libros del catalogo, y se
+    # Cada categoria, se crea en la lista de videos del catalogo, y se
 
-    # crea un libro en la lista de dicho autor (apuntador al libro)
+    # crea un video en la lista de dicha categoria (apuntador al video)
+    
+    for iden in ident:
 
-    for canal in canales:
+        addVideosCategoria(catalog, iden.strip(), video)
 
-        addVideoscanal(catalog, canal.strip(), video)
-
- def addVideoscanal(catalog, canal , video):
-
-    """
-    Adiciona un canal a lista de canales, la cual guarda referencias
-    a los videos de dicho canal
-    """
-    canales = catalog['canales']
-    poscanal = lt.isPresent(canales, canal)
-    if poscanal > 0:
-        author = lt.getElement(canales, poscanal)
-    else:
-        author = newCanal(canal)
-        lt.addLast(canales, author)
-    lt.addLast(author['canales'], video)
-
-def addCategory(catalog, video):
+def addVideosCategoria(catalog, identificador, video):
     """
     Adiciona un categoria a lista de categorias
     """
-    t = newcategory(category['idname'])
+
+    categorys = catalog['category']
+    posCategory = lt.isPresent(categorys, identificador)
+    if posCategory > 0:
+        categ = lt.getElement(categorys, posCategory)
+    else: 
+        categ = newCategory(identificador)
+        lt.addLast(categorys, categ)
+    lt.addLast(categ['videos'], video)
+
+def addCategory(catalog, category):
+    """
+    Crea una nueva estructura para modelar los videos de
+    una categoria, su nombre e id.
+    """
+    t = newCategory(category['id'], category['name'])
     lt.addLast(catalog['category'], t)
+
+def newCategory(id, name,):
+    categorys = {'id': '', 'name': '', 'videos': None }
+    categorys['name'] = name
+    categorys['id'] = id
+    categorys['videos'] = lt.newList('ARRAY_LIST')
+    return categorys
 
 # Funciones para creacion de datos
 
@@ -122,5 +121,20 @@ def getVideosByLikes(catalog, n, countryname, tag):
     pass
 
 # Funciones utilizadas para comparar elementos dentro de una lista
+   
+def cmpVideosByViews(video1, video2):
+    """ Devuelve verdadero (True) si los 'views' de video1 son menores que los del video2 
+    Args: video1: informacion del primer video que incluye su valor 'views'
+          video2: informacion del segundo video que incluye su valor 'views' """
+    return (float(video1['views']) < float(video2['views']))
+    
 
 # Funciones de ordenamiento
+def sortVideos(catalog, size):
+    sub_list = lt.subList(catalog['videos'],0,size)
+    sub_list = sub_list.copy()
+    start_time = time.process_time()
+    sorted_list = sa.sort(sub_list, cmpVideosByViews)
+    stop_time = time.process_time()
+    elapsed_time_mseg = (stop_time - start_time)*1000
+    return elapsed_time_mseg, sorted_list

@@ -41,6 +41,7 @@ def printMenu():
     print("3- Consultar video tendencia por país")
     print("4- Consultar video tendencia por categoría")
     print("5- Videos con más likes")
+    print("6- Ordenar los videos por wiews")
     print("0- Salir")
 
 
@@ -56,7 +57,7 @@ def loadData(catalog):
     """
     controller.loadData(catalog)
 
-def printCountryData(title):
+def printCountryData(video):
     if video:
         print('Video encontrado: ' + video['title'])
         print('Canal: ' + video['cannel_title'])
@@ -67,7 +68,7 @@ def printCountryData(title):
         print('No se encontro video')
 
 
-def printCategoryData(title):
+def printCategoryData(video):
     if video:
         print('Video encontrado: ' + video['title'])
         print('Canal: ' + video['cannel_title'])
@@ -114,11 +115,19 @@ while True:
     printMenu()
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 1:
-        print("Cargando información de los archivos ....")
-        catalog = initCatalog()
-        loadData(catalog)
-        print('Videos cargados: ' + str(lt.size(catalog['title'])))
-
+        print("1- ArrayList")
+        print("2- LinkedList")
+        lista = input("Seleccione el tipo de Lista\n")
+        if int(lista[0] == 1):
+            catalog = initCatalog('ARRAY_LIST')
+            loadData(catalog)
+            print('Videos cargados: ' + str(lt.size(catalog['title'])))
+        elif int(lista[0] == 2):
+            catalog = initCatalog('LINKED_LIST')
+            loadData(catalog)
+            print('Videos cargados: ' + str(lt.size(catalog['title'])))
+        else: 
+            sys.exit(0)
     elif int(inputs[0]) == 2:
         country = input("Ingrese el país a consultar")
         category_name = input("Ingrese la categoría a consultar")
@@ -143,7 +152,12 @@ while True:
         mas_likes = controller.getVideosByLikes(catalog, n, countryname, tag)
         printTagData(video)
 
+    elif int(inputs[0]) == 5:
+        size = input("Indique tamaño de la muestra: ")
+        result = controller.sortVideos(catalog, int(size))
+        print("Para la muestra de", size, " elementos, el tiempo (mseg) es: ",
+                                          str(result))
+
     else:
         sys.exit(0)
 sys.exit(0)
-
