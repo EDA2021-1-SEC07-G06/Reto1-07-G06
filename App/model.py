@@ -128,6 +128,7 @@ def cmpVideosByViews(video1, video2):
           video2: informacion del segundo video que incluye su valor 'views' """
     return (float(video1['views']) < float(video2['views']))
     
+    
 
 # Funciones de ordenamiento
 def sortVideos(catalog, size):
