@@ -29,7 +29,7 @@ import config as cf
 from DISClib.ADT import list as lt
 from DISClib.Algorithms.Sorting import shellsort as sa
 from DISClib.Algorithms.Sorting import selectionsort as ss
-from DISClib.Algorithms.Sorting import insertionsort as is
+from DISClib.Algorithms.Sorting import insertionsort as inss
 assert cf
 import time
 
@@ -47,11 +47,7 @@ def newCatalog(tipoLista):
     Inicializa el catálogo de videos.  Retorna el catalogo inicializado.
 
     """
-
     catalog = {'videos': None, 'category': None,}
-
- 
-
     catalog['videos'] = lt.newList(tipoLista, cmpfunction= cmpVideosByViews)
     catalog['category'] = lt.newList()
 
@@ -87,7 +83,7 @@ def addVideosCategoria(catalog, identificador, video):
     if posCategory > 0:
         categ = lt.getElement(categorys, posCategory)
     else: 
-        categ = newCategory(identificador)
+        categ = newCategory(identificador, '')
         lt.addLast(categorys, categ)
     lt.addLast(categ['videos'], video)
 
@@ -95,14 +91,14 @@ def addCategory(catalog, category):
     t = newCategory(category['id'], category['name'])
     lt.addLast(catalog['category'], t)
 
-def newCategory(id, name,):
+def newCategory(id, name):
     """
     Crea una nueva estructura para modelar los videos de
     una categoria, su nombre e id.
     """
     categorys = {'id': '', 'name': '', 'videos': None }
-    categorys['name'] = name
     categorys['id'] = id
+    categorys['name'] = name
     categorys['videos'] = lt.newList('ARRAY_LIST')
     return categorys
 
@@ -144,7 +140,7 @@ def sortVideos(catalog, size, tipo):
         return elapsed_time_mseg, sorted_list
     elif tipo == 'insertion' :
         start_time = time.process_time()
-        sorted_list = is.sort(sub_list, cmpVideosByViews)
+        sorted_list = inss.sort(sub_list, cmpVideosByViews)
         stop_time = time.process_time()
         elapsed_time_mseg = (stop_time - start_time)*1000
         return elapsed_time_mseg, sorted_list
