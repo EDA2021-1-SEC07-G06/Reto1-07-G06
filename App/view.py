@@ -37,11 +37,12 @@ operación solicitada
 def printMenu():
     print("Bienvenido")
     print("1- Cargar información en el catálogo")
-    print("2- Consultar videos tendencia por categoría y país ")
-    print("3- Consultar video tendencia por país")
-    print("4- Consultar video tendencia por categoría")
-    print("5- Videos con más likes")
-    print("6- Ordenar los videos por wiews")
+    print("2- Seleccionar tipo de ordenamiento")
+    print("3- Consultar videos tendencia por categoría y país ")
+    print("4- Consultar video tendencia por país")
+    print("5- Ordenar los videos por wiews")
+    print("6- Consultar video tendencia por categoría")
+    print("7- Videos con más likes")
     print("0- Salir")
 
 
@@ -128,35 +129,55 @@ while True:
             print('Videos cargados: ' + str(lt.size(catalog['title'])))
         else: 
             sys.exit(0)
+
     elif int(inputs[0]) == 2:
+        country = input("Ingrese el tipo de ofrdenamiento que desee: ")
+        ordenamiento = ''
+        print("1- Selection sort")
+        print("2- Insertion sort")
+        print("2- Shell sort")
+        if int(lista[0] == 1):
+            ordenamiento = 'selection'
+        elif int(lista[0] == 2):
+            ordenamiento = 'insertion'
+        elif int(lista[0] == 3):
+            ordenamiento = 'shell'
+        else: 
+            sys.exit(0)
+
+    elif int(inputs[0]) == 3:
         country = input("Ingrese el país a consultar")
         category_name = input("Ingrese la categoría a consultar")
         n = input("Ingrese el número de videos que quiere listar")
         video = controller.getTrendingVideos(catalog, category_name, country, n)
         printTrendingVideos(video)
 
-    elif int(inputs[0]) == 3:
+    elif int(inputs[0]) == 4:
         countryname = input("Nombre del país: ")
         country = controller.getVideosByCountry(catalog, countryname)
         printCountryData(video)
 
-    elif int(inputs[0]) == 4:
+    elif int(inputs[0]) == 5:
+        if ordenamiento != '':
+            size = input("Indique tamaño de la muestra: ")
+            result = controller.sortVideos(catalog, int(size), ordenamiento)
+            print("Para la muestra de", size, " elementos, el tiempo (mseg) es: ",
+                                          str(result))
+        else:
+            print("Porfavor elija el tipo de ordenamiento")
+            sys.exit(0)
+           
+    elif int(inputs[0]) == 6:
         category_name = input("Ingrese la categoría: ")
         category = controller.getVideosByCategory(catalog, category_name)
         printCategoryData(video)
 
-    elif int(inputs[0]) == 5:
+    elif int(inputs[0]) == 7:
         tag = input("Ingrese el tag a consultar: ")
         countryname = input("Nombre del país: ")
         n = input("Ingrese el número de videos que quiere listar")
         mas_likes = controller.getVideosByLikes(catalog, n, countryname, tag)
         printTagData(video)
-
-    elif int(inputs[0]) == 5:
-        size = input("Indique tamaño de la muestra: ")
-        result = controller.sortVideos(catalog, int(size))
-        print("Para la muestra de", size, " elementos, el tiempo (mseg) es: ",
-                                          str(result))
 
     else:
         sys.exit(0)
