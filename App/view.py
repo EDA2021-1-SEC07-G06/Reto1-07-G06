@@ -37,12 +37,11 @@ operación solicitada
 def printMenu():
     print("Bienvenido")
     print("1- Cargar información en el catálogo")
-    print("2- Seleccionar tipo de ordenamiento")
+    print("2- Ordenar los videos por wiews")
     print("3- Consultar videos tendencia por categoría y país ")
     print("4- Consultar video tendencia por país")
-    print("5- Ordenar los videos por wiews")
-    print("6- Consultar video tendencia por categoría")
-    print("7- Videos con más likes")
+    print("5- Consultar video tendencia por categoría")
+    print("6- Videos con más likes")
     print("0- Salir")
 
 
@@ -123,10 +122,22 @@ def printDatosCargados(intLista):
         catalog = initCatalog(link)
         loadData(catalog)
         resultado = ('Videos cargados: ' + str(lt.size(catalog['title'])))
-    else: 
-        print(resultado)
-    
-    print(resultado)
+
+    return resultado
+
+def printTipoOrd(tipo):
+    ordenamiento = ''
+    if int(tipo == 1):
+        ordenamiento = 'selection'
+        print("Ha seleccionado Selection Sort.")
+    elif int(tipo == 2):
+        ordenamiento = 'insertion'
+        print("Ha seleccionado Insertion Sort.")
+    elif int(tipo == 3):
+        ordenamiento = 'shell'
+        print("Ha seleccionado Shell Sort.")
+    return ordenamiento
+
 
 
 
@@ -136,27 +147,23 @@ Menu principal
 while True:
     printMenu()
     inputs = input('Seleccione una opción para continuar\n')
-    ordenamiento = 'shell'
     if int(inputs[0]) == 1:
         print("1- ArrayList")
         print("2- LinkedList")
         lista = input("Seleccione el tipo de Lista\n")
-        printDatosCargados(int(lista))
+        resultado = printDatosCargados(int(lista))
+        print(resultado)
 
     elif int(inputs[0]) == 2:
         print("1- Selection sort")
         print("2- Insertion sort")
         print("3- Shell sort")
-        lista = input("Ingrese el tipo de ofrdenamiento que desee: ")
-        if int(lista[0] == 1):
-            ordenamiento = 'selection'
-            print("Ha seleccionado Selection Sort.")
-        elif int(lista[0] == 2):
-            ordenamiento = 'insertion'
-            print("Ha seleccionado Insertion Sort.")
-        elif int(lista[0] == 3):
-            ordenamiento = 'shell'
-            print("Ha seleccionado Shell Sort.")
+        lista = input("Ingrese el tipo de ordenamiento que desee: ")
+        ordenamiento = printTipoOrd(int(lista))
+        size = input("Indique tamaño de la muestra: ")
+        result = controller.sortVideos(catalog, int(size), ordenamiento)
+        print("Para la muestra de", size, " elementos, el tiempo (mseg) es: ",
+                                          str(result))
         
 
     elif int(inputs[0]) == 3:
@@ -170,19 +177,13 @@ while True:
         countryname = input("Nombre del país: ")
         country = controller.getVideosByCountry(catalog, countryname)
         printCountryData(video)
-
-    elif int(inputs[0]) == 5:
-            size = input("Indique tamaño de la muestra: ")
-            result = controller.sortVideos(catalog, int(size), ordenamiento)
-            print("Para la muestra de", size, " elementos, el tiempo (mseg) es: ",
-                                          str(result))
            
-    elif int(inputs[0]) == 6:
+    elif int(inputs[0]) == 5:
         category_name = input("Ingrese la categoría: ")
         category = controller.getVideosByCategory(catalog, category_name)
         printCategoryData(video)
 
-    elif int(inputs[0]) == 7:
+    elif int(inputs[0]) == 6:
         tag = input("Ingrese el tag a consultar: ")
         countryname = input("Nombre del país: ")
         n = input("Ingrese el número de videos que quiere listar")
