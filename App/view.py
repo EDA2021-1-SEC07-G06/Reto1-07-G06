@@ -135,6 +135,13 @@ def printTipoOrd(tipo):
     elif int(tipo == 3):
         ordenamiento = 'shell'
         print("Ha seleccionado Shell Sort.")
+    elif int(tipo == 4):
+        ordenamiento = 'merge'
+        print("Ha seleccionado Merge Sort.")
+    elif int(tipo == 5):
+        ordenamiento = 'quick'
+        print("Ha seleccionado Quick Sort.")
+        
     return ordenamiento
 
 
@@ -157,6 +164,9 @@ while True:
         print("1- Selection sort")
         print("2- Insertion sort")
         print("3- Shell sort")
+        print("4- Merge sort")
+        print("5- Quick sort")
+
         lista = input("Ingrese el tipo de ordenamiento que desee: ")
         ordenamiento = printTipoOrd(int(lista))
         size = input("Indique tamaño de la muestra: ")

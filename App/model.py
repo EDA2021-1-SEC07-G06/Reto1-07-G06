@@ -30,6 +30,8 @@ from DISClib.ADT import list as lt
 from DISClib.Algorithms.Sorting import shellsort as sa
 from DISClib.Algorithms.Sorting import selectionsort as ss
 from DISClib.Algorithms.Sorting import insertionsort as ins
+from DISClib.Algorithms.Sorting import mergesort as ms
+from DISClib.Algorithms.Sorting import quicksort as qs
 assert cf
 import time
 
@@ -143,9 +145,21 @@ def sortVideos(catalog, size, tipo):
         elapsed_time_mseg = (stop_time - start_time)*1000
         return elapsed_time_mseg, sorted_list
     
-    else :
+    elif tipo == 'shell':
         start_time = time.process_time()
         sorted_list = sa.sort(sub_list, cmpVideosByViews)
+        stop_time = time.process_time()
+        elapsed_time_mseg = (stop_time - start_time)*1000
+        return elapsed_time_mseg, sorted_list
+    elif tipo == 'quick':
+        start_time = time.process_time()
+        sorted_list = qs.sort(sub_list, cmpVideosByViews)
+        stop_time = time.process_time()
+        elapsed_time_mseg = (stop_time - start_time)*1000
+        return elapsed_time_mseg, sorted_list
+    elif tipo == 'merge':
+        start_time = time.process_time()
+        sorted_list = ms.sort(sub_list, cmpVideosByViews)
         stop_time = time.process_time()
         elapsed_time_mseg = (stop_time - start_time)*1000
         return elapsed_time_mseg, sorted_list
