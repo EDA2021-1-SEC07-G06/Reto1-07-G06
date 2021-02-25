@@ -33,6 +33,7 @@ Presenta el menu de opciones y por cada seleccion
 se hace la solicitud al controlador para ejecutar la
 operación solicitada
 """
+catalog = None
 
 def printMenu():
     print("Bienvenido")
@@ -106,22 +107,20 @@ def printTagData(videos):
     else:
         print('No se encontraron videos')
 
-catalog = None
 
 def printDatosCargados(intLista):
-
     resultado = 'no salio'
     array = 'ARRAY_LIST'
     link = 'LINKED_LIST'
-
+    global catalog
     if int(intLista == 1):
         catalog = initCatalog(array)
         loadData(catalog)
-        resultado = ('Videos cargados: ' + str(lt.size(catalog['title'])))
+        resultado = ('Videos cargados: ' + str(lt.size(catalog['videos'])))
     elif int(intLista == 2):
         catalog = initCatalog(link)
         loadData(catalog)
-        resultado = ('Videos cargados: ' + str(lt.size(catalog['title'])))
+        resultado = ('Videos cargados: ' + str(lt.size(catalog['videos'])))
 
     return resultado
 
@@ -163,9 +162,8 @@ while True:
         size = input("Indique tamaño de la muestra: ")
         result = controller.sortVideos(catalog, int(size), ordenamiento)
         print("Para la muestra de", size, " elementos, el tiempo (mseg) es: ",
-                                          str(result))
+                                          str(result[0]))
         
-
     elif int(inputs[0]) == 3:
         country = input("Ingrese el país a consultar")
         category_name = input("Ingrese la categoría a consultar")

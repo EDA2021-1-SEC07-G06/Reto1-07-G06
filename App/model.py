@@ -43,9 +43,7 @@ los mismos.
 def newCatalog(tipoLista):
 
     """
-
     Inicializa el catálogo de videos.  Retorna el catalogo inicializado.
-
     """
     catalog = {'videos': None, 'category': None,}
     catalog['videos'] = lt.newList(tipoLista, cmpfunction= cmpVideosByViews)
@@ -69,9 +67,10 @@ def addVideo(catalog,video):
 
     # crea un video en la lista de dicha categoria (apuntador al video)
     
-    for iden in ident:
+    #for iden in ident:
 
-        addVideosCategoria(catalog, iden.strip(), video)
+        #addVideosCategoria(catalog, iden.strip(), video)
+    
 
 def addVideosCategoria(catalog, identificador, video):
     """
@@ -136,6 +135,7 @@ def sortVideos(catalog, size, tipo):
         stop_time = time.process_time()
         elapsed_time_mseg = (stop_time - start_time)*1000
         return elapsed_time_mseg, sorted_list
+
     elif tipo == 'insertion' :
         start_time = time.process_time()
         sorted_list = ins.sort(sub_list, cmpVideosByViews)

@@ -73,7 +73,7 @@ def sortVideos(catalog, size, tipo):
     """
     Ordena los videos por numero de views
     """
-    model.sortVideos(catalog, size, tipo)
+    return model.sortVideos(catalog, size, tipo)
 
 # Funciones de consulta sobre el catálogo
 
