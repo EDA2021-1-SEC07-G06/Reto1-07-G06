@@ -80,7 +80,7 @@ def addVideosCategoria(catalog, identificador, video):
 
     categorys = catalog['category']
     posCategory = lt.isPresent(categorys, identificador)
-    if posCategory != 0:
+    if posCategory > 0:
         categ = lt.getElement(categorys, posCategory)
     else: 
         categ = newCategory(identificador, '')
