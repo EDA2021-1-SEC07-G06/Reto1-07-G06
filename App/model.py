@@ -29,7 +29,7 @@ import config as cf
 from DISClib.ADT import list as lt
 from DISClib.Algorithms.Sorting import shellsort as sa
 from DISClib.Algorithms.Sorting import selectionsort as ss
-from DISClib.Algorithms.Sorting import insertionsort as is
+from DISClib.Algorithms.Sorting import insertionsort as ins
 assert cf
 import time
 
@@ -144,7 +144,7 @@ def sortVideos(catalog, size, tipo):
         return elapsed_time_mseg, sorted_list
     elif tipo == 'insertion' :
         start_time = time.process_time()
-        sorted_list = is.sort(sub_list, cmpVideosByViews)
+        sorted_list = ins.sort(sub_list, cmpVideosByViews)
         stop_time = time.process_time()
         elapsed_time_mseg = (stop_time - start_time)*1000
         return elapsed_time_mseg, sorted_list
