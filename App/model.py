@@ -48,8 +48,8 @@ def newCatalog(tipoLista):
     Inicializa el catálogo de videos.  Retorna el catalogo inicializado.
     """
     catalog = {'videos': None, 'category': None,}
-    catalog['videos'] = lt.newList(tipoLista, cmpfunction= cmpVideosByViews)
-    catalog['category'] = lt.newList()
+    catalog['videos'] = lt.newList(tipoLista, cmpfunction= cmpVideosByTitle)
+    catalog['category'] = lt.newList(cmpfunction = cmpByIdCategory)
 
     return catalog
 
@@ -63,15 +63,15 @@ def addVideo(catalog,video):
 
     # Se obtiene la categoria del libro 
 
-    ident = video['category_id'].split(",")
+    categoriaid = int(video['category_id'])
 
     # Cada categoria, se crea en la lista de videos del catalogo, y se
 
     # crea un video en la lista de dicha categoria (apuntador al video)
     
-    #for iden in ident:
+    
 
-        #addVideosCategoria(catalog, iden.strip(), video)
+    addVideosCategoria(catalog, categoriaid, video)
     
 
 def addVideosCategoria(catalog, identificador, video):
@@ -89,7 +89,7 @@ def addVideosCategoria(catalog, identificador, video):
     lt.addLast(categ['videos'], video)
 
 def addCategory(catalog, category):
-    t = newCategory(category['id'], category['name'])
+    t = newCategory(int(category['id']), category['name'])
     lt.addLast(catalog['category'], t)
 
 def newCategory(id, name):
@@ -124,7 +124,28 @@ def cmpVideosByViews(video1, video2):
     Args: video1: informacion del primer video que incluye su valor 'views'
           video2: informacion del segundo video que incluye su valor 'views' """
     return (float(video1['views']) < float(video2['views']))
+
+def cmpVideosByTitle(video1, video2):
     
+    title1 = video1['title']
+    title2 = video2['title']
+    if title1 == title2:
+        return 0
+    elif title1 < title2:
+        return -1
+    else:
+        return 1
+    
+def cmpByIdCategory(cat1,cat2):
+
+    idCat1 = cat1['id'] 
+    idCat2 = cat2['id'] 
+    if idCat1 == idCat2:
+        return 0
+    elif idCat1 < idCat2:
+        return -1
+    else:
+        return 1
 
 
 # Funciones de ordenamiento

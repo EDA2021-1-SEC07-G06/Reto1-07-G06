@@ -112,7 +112,7 @@ def printDatosCargados(intLista):
     resultado = 'no salio'
     array = 'ARRAY_LIST'
     link = 'LINKED_LIST'
-    global catalog
+    #1global catalog
     if int(intLista == 1):
         catalog = initCatalog(array)
         loadData(catalog)
