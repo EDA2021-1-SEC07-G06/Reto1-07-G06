@@ -80,7 +80,7 @@ def addVideosCategoria(catalog, identificador, video):
 
     categorys = catalog['category']
     posCategory = lt.isPresent(categorys, identificador)
-    if posCategory > 0:
+    if posCategory != 0:
         categ = lt.getElement(categorys, posCategory)
     else: 
         categ = newCategory(identificador, '')
@@ -96,9 +96,7 @@ def newCategory(id, name):
     Crea una nueva estructura para modelar los videos de
     una categoria, su nombre e id.
     """
-    categorys = {'id': '', 'name': '', 'videos': None }
-    categorys['id'] = id
-    categorys['name'] = name
+    categorys = {'id': id, 'name': name, 'videos': None }
     categorys['videos'] = lt.newList('ARRAY_LIST')
     return categorys
 
