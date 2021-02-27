@@ -80,11 +80,12 @@ def addVideosCategoria(catalog, identificador, video):
     """
 
     categorys = catalog['category']
-    posCategory = lt.isPresent(categorys, identificador)
+    categoryTosearch = newCategory(identificador, '')
+    posCategory = lt.isPresent(categorys, categoryTosearch)
     if posCategory > 0:
         categ = lt.getElement(categorys, posCategory)
     else: 
-        categ = newCategory(identificador, '')
+        categ = newCategory(identificador, 'desconocida')
         lt.addLast(categorys, categ)
     lt.addLast(categ['videos'], video)
 
@@ -97,8 +98,8 @@ def newCategory(id, name):
     Crea una nueva estructura para modelar los videos de
     una categoria, su nombre e id.
     """
-    categorys = {'id': id, 'name': name, 'videos': None }
-    categorys['videos'] = lt.newList('ARRAY_LIST')
+    categorys = {'id': id, 'name': name.strip(), 'videos': None }
+    categorys['videos'] = lt.newList('ARRAY_LIST',cmpfunction=cmpVideosByTitle)
     return categorys
 
 # Funciones para creacion de datos
