@@ -135,8 +135,9 @@ def getVideosByCountry(catalog, countryname):
                 dict_repeticiones[video["video_id"]] = 1
             else:
                 dict_repeticiones[video["video_id"]] += 1
-            lista_videos_pais.append(dict)
-
+        lista_videos_pais.append(dict)
+        
+    print(lista_videos_pais)
     mas_trending = ""
     dias_trending = 0
     for video in dict_repeticiones:
@@ -144,10 +145,10 @@ def getVideosByCountry(catalog, countryname):
             dias_trending = dict_repeticiones[video]
             mas_trending = video
     
-    print(mas_trending)
-    for video in lista_videos_pais:
-        if video["id"] == mas_trending:
-            print(video)
+    for pos in range (0,len(lista_videos_pais)):
+        print(lista_videos_pais[pos]["id"] + " ->xxx")
+        print(mas_trending + " --> aaa")
+        if lista_videos_pais[pos]["id"] == mas_trending:
             return (video, dias_trending)
 
 def getVideosByLikes(catalog, n, countryname, tag):
