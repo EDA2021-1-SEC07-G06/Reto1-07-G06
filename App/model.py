@@ -127,13 +127,21 @@ def getVideosByCountry (catalog, countryname):
     dict = {}
     for video in catalog:
         if video["country"] == countryname:
-            lista_videos_pais.append(video["country"])
+            dict["video"] = video["title"]
+            dict["canal"] = video["cannel_title"]
+            lista_videos_pais.append(dict)
+            
 
-    veces_trending = []
+    pos = 0
+    mas_trending = ""
+    dias_trending = 0
     for elem in lista_videos_pais:
-        if elem isPresent in videos == False:
-            video.append(elem)
- return pass
+        if lista_videos_pais[elem].count(lista_videos_pais[elem]["video"]) > dias_trending:
+            dias_trending = lista_videos_pais.count(lista_videos_pais[elem]["video"])
+            mas_trending = elem
+        pos += 1
+    
+ return (mas_trending, dias_trending)
 
 def getVideosByLikes(catalog, n, countryname, tag):
     pass
