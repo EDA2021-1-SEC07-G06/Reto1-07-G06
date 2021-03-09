@@ -104,6 +104,16 @@ def newCategory(id, name):
 
 # Funciones para creacion de datos
 
+def newVideoViews(name):
+    """
+    Crea una nueva estructura para modelar los videos de
+    un país y su total de views
+    """
+    pais = {'country': "", "video": None,  "total_views": 0}
+    pais['country'] = name
+    pais['video'] = lt.newList('ARRAY_LIST')
+    return pais
+
 # Funciones de consulta
 
 def getTrendingVideos(catalog, category_name, country, n):
@@ -113,7 +123,17 @@ def getVideosByCategory (catalog, category_name):
     pass
 
 def getVideosByCountry (catalog, countryname):
-    pass
+    lista_videos_pais = []
+    dict = {}
+    for video in catalog:
+        if video["country"] == countryname:
+            lista_videos_pais.append(video["country"])
+
+    veces_trending = []
+    for elem in lista_videos_pais:
+        if elem isPresent in videos == False:
+            video.append(elem)
+ return pass
 
 def getVideosByLikes(catalog, n, countryname, tag):
     pass
