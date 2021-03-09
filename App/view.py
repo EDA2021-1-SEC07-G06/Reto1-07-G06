@@ -58,11 +58,11 @@ def loadData(catalog):
     """
     controller.loadData(catalog)
 
-def printCountryData(video, dias):
+def printCountryData(video, dias, countryname):
     if video:
-        print('Video encontrado: ' + video['title'])
-        print('Canal: ' + video['cannel_title'])
-        print('País: ' + video['country'])
+        print('Video encontrado: ' + video['video'])
+        print('Canal: ' + video['canal'])
+        print('País: ' + countryname)
         print('Número de días: ' + str(dias))
         
     else:
@@ -184,8 +184,11 @@ while True:
     elif int(inputs[0]) == 4:
         countryname = input("Nombre del país: ")
         country = controller.getVideosByCountry(catalog, countryname)
-        printCountryData(country)
-           
+        if country == None:
+            print("No se encontraron videos")
+        else:
+            printCountryData(country[0], country[1], countryname)
+            
     elif int(inputs[0]) == 5:
         category_name = input("Ingrese la categoría: ")
         category = controller.getVideosByCategory(catalog, category_name)

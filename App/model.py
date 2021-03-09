@@ -78,7 +78,6 @@ def addVideosCategoria(catalog, identificador, video):
     """
     Adiciona un categoria a lista de categorias
     """
-
     categorys = catalog['category']
     categoryTosearch = newCategory(identificador, '')
     posCategory = lt.isPresent(categorys, categoryTosearch)
@@ -122,26 +121,34 @@ def getTrendingVideos(catalog, category_name, country, n):
 def getVideosByCategory (catalog, category_name):
     pass
 
-def getVideosByCountry (catalog, countryname):
+def getVideosByCountry(catalog, countryname):
     lista_videos_pais = []
     dict = {}
-    for video in catalog:
+    dict_repeticiones = {}
+
+    for video in catalog["videos"]["elements"]:
         if video["country"] == countryname:
             dict["video"] = video["title"]
-            dict["canal"] = video["cannel_title"]
+            dict["canal"] = video["channel_title"]
+            dict["id"] = video["video_id"]
+            if video["video_id"] not in dict_repeticiones:
+                dict_repeticiones[video["video_id"]] = 1
+            else:
+                dict_repeticiones[video["video_id"]] += 1
             lista_videos_pais.append(dict)
-            
 
-    pos = 0
     mas_trending = ""
     dias_trending = 0
-    for elem in lista_videos_pais:
-        if lista_videos_pais[elem].count(lista_videos_pais[elem]["video"]) > dias_trending:
-            dias_trending = lista_videos_pais.count(lista_videos_pais[elem]["video"])
-            mas_trending = elem
-        pos += 1
+    for video in dict_repeticiones:
+        if dict_repeticiones[video] > dias_trending:
+            dias_trending = dict_repeticiones[video]
+            mas_trending = video
     
- return (mas_trending, dias_trending)
+    print(mas_trending)
+    for video in lista_videos_pais:
+        if video["id"] == mas_trending:
+            print(video)
+            return (video, dias_trending)
 
 def getVideosByLikes(catalog, n, countryname, tag):
     pass
