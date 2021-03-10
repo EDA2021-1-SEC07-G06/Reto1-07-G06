@@ -81,7 +81,7 @@ def getTrendingVideos(catalog, category_name, country, n):
     """
     Retorna los videos trending
     """
-    trending = model.TrendingVideos(catalog, category_name, country, n)
+    trending = model.getTrendingVideos(catalog, category_name, country, n)
     return trending
 
 def getVideosByCategory(catalog, category_name):

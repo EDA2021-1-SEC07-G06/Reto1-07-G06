@@ -24,6 +24,7 @@
  * Dario Correal - Version inicial
  """
 
+from DISClib.DataStructures.arraylist import size
 from datetime import date as date
 import config as cf
 from DISClib.ADT import list as lt
@@ -116,7 +117,36 @@ def newVideoViews(name):
 # Funciones de consulta
 
 def getTrendingVideos(catalog, category_name, country, n):
-    pass
+    categorys = catalog['category']
+    count = lt.size(categorys)
+    inicio = 0
+    while inicio <= count:
+        elemento = lt.getElement(categorys, inicio)
+        if elemento['name'] == category_name.strip():
+            categ = elemento.copy()
+            videos = categ['videos']
+            tamañoVideos = lt.size(videos)
+            cont = 0
+            listaVideos = lt.newList('ARRAY_LIST')
+            tamañolv = size(listaVideos)
+            while cont <= tamañoVideos:
+                video = lt.getElement(videos,cont)
+                if video['country'] == country:
+                    lt.addLast(listaVideos,video)
+                cont += 1
+            listaOrdenada = ms.sort(listaVideos, cmpVideosByViews)     
+            if int(n) <= tamañolv:
+                listaFinal = lt.subList(listaOrdenada,0,tamañolv)
+            elif listaVideos == None:
+                listaFinal == None
+            elif int(n) >= tamañolv:
+                listaFinal = lt.subList(listaOrdenada,0,int(n))
+
+        inicio += 1
+        
+
+    return listaFinal
+
 
 def getVideosByCategory (catalog, category_name):
     categorys = catalog['category']

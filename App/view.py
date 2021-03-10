@@ -93,7 +93,7 @@ def printTrendingVideos(videos):
         print(' Estos son los mejores videos: ')
         for video in lt.iterator(videos):
             print( 'Fecha de tendencia: ' + video['trending_date'] + 
-                   ' Titulo: ' + video['title'] + '  Canal: ' + video['cannel_title'] +
+                   ' Titulo: ' + video['title'] + '  Canal: ' + video['channel_title'] +
                    ' Tiempo de publicación: ' + video['publish_time'] +
                    ' Vistas: ' +video['views'] + ' Likes: ' +video['likes'] + 
                    ' Dislikes: ' + video['dislikes'])
@@ -182,9 +182,9 @@ while True:
                                           str(result[0]))
         
     elif int(inputs[0]) == 3:
-        country = input("Ingrese el país a consultar")
-        category_name = input("Ingrese la categoría a consultar")
-        n = input("Ingrese el número de videos que quiere listar")
+        country = input("Ingrese el país a consultar: ")
+        category_name = input("Ingrese la categoría a consultar: ")
+        n = input("Ingrese el número de videos que quiere listar: ")
         video = controller.getTrendingVideos(catalog, category_name, country, n)
         printTrendingVideos(video)
 
