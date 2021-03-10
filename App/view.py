@@ -22,9 +22,10 @@
 
 import config as cf
 import sys
-import controller
+import controller 
 from DISClib.ADT import list as lt
 assert cf
+
 
 
 """
@@ -63,18 +64,24 @@ def printCountryData(video, dias, countryname):
         print('Video encontrado: ' + video['video'])
         print('Canal: ' + video['canal'])
         print('País: ' + countryname)
-        print('Número de días: ' + str(dias))
+        print('Número de días:' + str(dias))
         
     else:
         print('No se encontro video')
 
 
 def printCategoryData(video):
+    
+    vide = video[0]
+    dias = video[1]
+    
     if video:
-        print('Video encontrado: ' + video['title'])
-        print('Canal: ' + video['cannel_title'])
-        print('Categoria-id: ' + video['category_id'])
-        print('Número de días: ' + video['dias'])
+        print('Video encontrado: ' + vide['title'])
+        print('Canal: ' + vide['channel_title'])
+        print('Categoria-id: ' + vide['category_id'])
+        print('Publi: ' + vide['publish_time'])
+        print('Trend: ' + vide['trending_date'])
+        print('Número de días: ' + str(dias))
         
     else:
         print('No se encontro video')
@@ -86,7 +93,7 @@ def printTrendingVideos(videos):
         print(' Estos son los mejores videos: ')
         for video in lt.iterator(videos):
             print( 'Fecha de tendencia: ' + video['trending_date'] + 
-                   ' Titulo: ' + video['title'] + '  Canal: ' + video['cannel_title'] +
+                   ' Titulo: ' + video['title'] + '  Canal: ' + video['channel_title'] +
                    ' Tiempo de publicación: ' + video['publish_time'] +
                    ' Vistas: ' +video['views'] + ' Likes: ' +video['likes'] + 
                    ' Dislikes: ' + video['dislikes'])
@@ -109,7 +116,7 @@ def printTagData(videos):
 
 
 def printDatosCargados(intLista):
-    resultado = 'no salio'
+    resultado = 'Opción invalida. '
     array = 'ARRAY_LIST'
     link = 'LINKED_LIST'
     global catalog
@@ -175,9 +182,9 @@ while True:
                                           str(result[0]))
         
     elif int(inputs[0]) == 3:
-        country = input("Ingrese el país a consultar")
-        category_name = input("Ingrese la categoría a consultar")
-        n = input("Ingrese el número de videos que quiere listar")
+        country = input("Ingrese el país a consultar: ")
+        category_name = input("Ingrese la categoría a consultar: ")
+        n = input("Ingrese el número de videos que quiere listar: ")
         video = controller.getTrendingVideos(catalog, category_name, country, n)
         printTrendingVideos(video)
 
@@ -192,7 +199,7 @@ while True:
     elif int(inputs[0]) == 5:
         category_name = input("Ingrese la categoría: ")
         category = controller.getVideosByCategory(catalog, category_name)
-        printCategoryData(video)
+        printCategoryData(category)
 
     elif int(inputs[0]) == 6:
         tag = input("Ingrese el tag a consultar: ")

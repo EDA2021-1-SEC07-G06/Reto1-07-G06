@@ -24,7 +24,8 @@
  * Dario Correal - Version inicial
  """
 
-
+from DISClib.DataStructures.arraylist import size
+from datetime import date as date
 import config as cf
 from DISClib.ADT import list as lt
 from DISClib.Algorithms.Sorting import shellsort as sa
@@ -49,7 +50,7 @@ def newCatalog(tipoLista):
     """
     catalog = {'videos': None, 'category': None,}
     catalog['videos'] = lt.newList(tipoLista, cmpfunction= cmpVideosByTitle)
-    catalog['category'] = lt.newList(cmpfunction = cmpByIdCategory)
+    catalog['category'] = lt.newList(tipoLista, cmpfunction = cmpByIdCategory)
 
     return catalog
 
@@ -113,11 +114,93 @@ def newVideoViews(name):
 # Funciones de consulta
 
 def getTrendingVideos(catalog, category_name, country, n):
-    pass
+    categorys = catalog['category']
+    count = lt.size(categorys)
+    inicio = 0
+    while inicio <= count:
+        elemento = lt.getElement(categorys, inicio)
+        if elemento['name'] == category_name.strip():
+            categ = elemento.copy()
+            videos = categ['videos']
+            tamañoVideos = lt.size(videos)
+            cont = 0
+            listaVideos = lt.newList('ARRAY_LIST')
+            tamañolv = size(listaVideos)
+            while cont <= tamañoVideos:
+                video = lt.getElement(videos,cont)
+                if video['country'] == country:
+                    lt.addLast(listaVideos,video)
+                cont += 1
+            listaOrdenada = ms.sort(listaVideos, cmpVideosByViews)     
+            if int(n) <= tamañolv:
+                listaFinal = lt.subList(listaOrdenada,0,tamañolv)
+            elif listaVideos == None:
+                listaFinal == None
+            elif int(n) >= tamañolv:
+                listaFinal = lt.subList(listaOrdenada,0,int(n))
+
+        inicio += 1
+        
+
+    return listaFinal
+
 
 def getVideosByCategory (catalog, category_name):
-    pass
+    categorys = catalog['category']
+    count = lt.size(categorys)
+    inicio = 0
+    while inicio <= count:
+        elemento = lt.getElement(categorys, inicio)
+        if elemento['name'] == category_name.strip():
+            categ = elemento.copy()
+            videos = categ['videos']
+            tamañoVideos = lt.size(videos)
+            diasMayor = 0
+            cont = 0
+            video = None
+            while cont <= tamañoVideos:
+                video = lt.getElement(videos,cont)
+                dias = contarDias(video)
+                if dias >= diasMayor:
+                    resultado = [video, dias]
+                    diasMayor = dias
+                cont = cont + 1
+            inicio = count + 1
+        else:
+            inicio += 1
+            resultado = 'No se encontró la categoria. '
+    return resultado
 
+
+def contarDias(video):
+
+    listaPos = video
+    ultimoDia = listaPos['publish_time']
+    primerDia = listaPos['trending_date']
+
+
+    uDia = ultimoDia.split('T')
+    uSeparado = uDia[0].split('-')
+    sAño = int(uSeparado[0])
+    sMes = int(uSeparado[1])
+    sDia = int(uSeparado[2])
+
+    diaTrend =  date(sAño,sMes,sDia)
+
+    pSeparado = primerDia.split('.')
+    pAño = 2000 + int(pSeparado[0])
+    pMes = int(pSeparado[2])
+    pDia = int(pSeparado[1])
+    
+    diaPubli = date(pAño,pMes,pDia)
+
+    diferencia = diaPubli - diaTrend
+    resultado = diferencia.days
+    return int(resultado)
+
+        
+
+    
 def getVideosByCountry(catalog, countryname):
     lista_videos_pais = []
     dict = {}
@@ -180,6 +263,8 @@ def cmpByIdCategory(cat1,cat2):
         return -1
     else:
         return 1
+
+
 
 
 # Funciones de ordenamiento
