@@ -27,6 +27,7 @@ from DISClib.ADT import list as lt
 assert cf
 
 
+
 """
 La vista se encarga de la interacción con el usuario
 Presenta el menu de opciones y por cada seleccion
@@ -63,7 +64,7 @@ def printCountryData(video, dias, countryname):
         print('Video encontrado: ' + video['video'])
         print('Canal: ' + video['canal'])
         print('País: ' + countryname)
-        print('Número de días: ' + str(dias))
+        print('Número de días:' + str(dias))
         
     else:
         print('No se encontro video')
@@ -73,11 +74,14 @@ def printCategoryData(video):
     
     vide = video[0]
     dias = video[1]
+    
     if video:
         print('Video encontrado: ' + vide['title'])
         print('Canal: ' + vide['channel_title'])
         print('Categoria-id: ' + vide['category_id'])
-        print('Número de días: ' + dias)
+        print('Publi: ' + vide['publish_time'])
+        print('Trend: ' + vide['trending_date'])
+        print('Número de días: ' + str(dias))
         
     else:
         print('No se encontro video')

@@ -25,8 +25,6 @@
  """
 
 from datetime import date as date
-from App.view import printMenu
-from os import P_DETACH
 import config as cf
 from DISClib.ADT import list as lt
 from DISClib.Algorithms.Sorting import shellsort as sa
@@ -132,12 +130,14 @@ def getVideosByCategory (catalog, category_name):
             tamañoVideos = lt.size(videos)
             diasMayor = 0
             cont = 0
+            video = None
             while cont <= tamañoVideos:
                 video = lt.getElement(videos,cont)
                 dias = contarDias(video)
                 if dias >= diasMayor:
-                    resultado = [video, diasMayor]
-                cont += 1
+                    resultado = [video, dias]
+                    diasMayor = dias
+                cont = cont + 1
             inicio = count + 1
         else:
             inicio += 1
@@ -148,25 +148,29 @@ def getVideosByCategory (catalog, category_name):
 def contarDias(video):
 
     listaPos = video
-    primerDia = listaPos['publish_time']
-    ultimoDia = listaPos['trending_date']
+    ultimoDia = listaPos['publish_time']
+    primerDia = listaPos['trending_date']
 
-    pSeparado = primerDia.split('.')
-    pAño = lt.getElement( pSeparado,0)
-    pMes = lt.getElement( pSeparado,2)
-    pDia = lt.getElement( pSeparado,1)
-    diaPubli = date(int(pAño),int(pMes),int(pDia))
 
     uDia = ultimoDia.split('T')
-    uSeparado = (lt.getElement(uDia,0)).split('-')
-    sAño = lt.getElement(uSeparado,0)
-    sMes = lt.getElement(uSeparado,1)
-    sDia = lt.getElement(uSeparado,2)
-    diaTrend =  date(int(sAño),int(sMes),int(sDia))
+    uSeparado = uDia[0].split('-')
+    sAño = int(uSeparado[0])
+    sMes = int(uSeparado[1])
+    sDia = int(uSeparado[2])
 
-    diferencia = diaTrend - diaPubli
+    diaTrend =  date(sAño,sMes,sDia)
+
+    pSeparado = primerDia.split('.')
+    pAño = 2000 + int(pSeparado[0])
+    pMes = int(pSeparado[2])
+    pDia = int(pSeparado[1])
+    
+    diaPubli = date(pAño,pMes,pDia)
+
+    diferencia = diaPubli - diaTrend
     resultado = diferencia.days
-    return resultado
+    return int(resultado)
+
         
 
     
