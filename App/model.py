@@ -230,8 +230,45 @@ def getVideosByCountry(catalog, countryname):
             return (lista_videos_pais[pos], dias_trending)
 
 def getVideosByLikes(catalog, n, countryname, tag):
+    lista_videos_pais = []
+    dict = {}
+    lista_videos_likes = []
+
     for video in lt.iterator(catalog["videos"]):
         if video["country"] == countryname:
+            if tag in video["tags"]:
+                dict["id"] = video["video_id"]
+                dict["title"] = video["title"]
+                dict["canal"] = video["channel_title"]
+                dict["publicación"] = video["publish_time"]
+                dict["vistas"] = video["views"]
+                dict["likes"] = video["likes"]
+                dict["tags"] = video["tags"]
+                lista_videos_likes.append(video["likes"])
+                lista_videos_pais.append(dict)
+                dict = {}
+    
+    lista_videos_likes.sort()
+
+    pos = len(lista_videos_likes)- 1
+    x = len(lista_videos_likes) - n
+    likes_n_videos = []
+
+    if x > 0:
+        while pos >= x:
+            likes_n_videos.append(lista_videos_likes[pos]["likes"])
+            pos -= 1
+    else:
+        while pos >= 0:
+            
+            pos -= 1
+
+
+        
+
+    
+    #lista dict con solo la info de las n posiciones y return
+    
     
 
 # Funciones utilizadas para comparar elementos dentro de una lista
