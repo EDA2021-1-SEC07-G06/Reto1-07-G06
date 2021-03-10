@@ -70,11 +70,14 @@ def printCountryData(video, dias, countryname):
 
 
 def printCategoryData(video):
+    
+    vide = video[0]
+    dias = video[1]
     if video:
-        print('Video encontrado: ' + video['title'])
-        print('Canal: ' + video['cannel_title'])
-        print('Categoria-id: ' + video['category_id'])
-        print('Número de días: ' + video['dias'])
+        print('Video encontrado: ' + vide['title'])
+        print('Canal: ' + vide['channel_title'])
+        print('Categoria-id: ' + vide['category_id'])
+        print('Número de días: ' + dias)
         
     else:
         print('No se encontro video')
@@ -109,7 +112,7 @@ def printTagData(videos):
 
 
 def printDatosCargados(intLista):
-    resultado = 'no salio'
+    resultado = 'Opción invalida. '
     array = 'ARRAY_LIST'
     link = 'LINKED_LIST'
     global catalog
@@ -192,7 +195,7 @@ while True:
     elif int(inputs[0]) == 5:
         category_name = input("Ingrese la categoría: ")
         category = controller.getVideosByCategory(catalog, category_name)
-        printCategoryData(video)
+        printCategoryData(category)
 
     elif int(inputs[0]) == 6:
         tag = input("Ingrese el tag a consultar: ")

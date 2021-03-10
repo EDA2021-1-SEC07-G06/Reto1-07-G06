@@ -24,7 +24,9 @@
  * Dario Correal - Version inicial
  """
 
-
+from datetime import date as date
+from App.view import printMenu
+from os import P_DETACH
 import config as cf
 from DISClib.ADT import list as lt
 from DISClib.Algorithms.Sorting import shellsort as sa
@@ -49,7 +51,7 @@ def newCatalog(tipoLista):
     """
     catalog = {'videos': None, 'category': None,}
     catalog['videos'] = lt.newList(tipoLista, cmpfunction= cmpVideosByTitle)
-    catalog['category'] = lt.newList(cmpfunction = cmpByIdCategory)
+    catalog['category'] = lt.newList(tipoLista, cmpfunction = cmpByIdCategory)
 
     return catalog
 
@@ -119,8 +121,55 @@ def getTrendingVideos(catalog, category_name, country, n):
     pass
 
 def getVideosByCategory (catalog, category_name):
-    pass
+    categorys = catalog['category']
+    count = lt.size(categorys)
+    inicio = 0
+    while inicio <= count:
+        elemento = lt.getElement(categorys, inicio)
+        if elemento['name'] == category_name.strip():
+            categ = elemento.copy()
+            videos = categ['videos']
+            tamañoVideos = lt.size(videos)
+            diasMayor = 0
+            cont = 0
+            while cont <= tamañoVideos:
+                video = lt.getElement(videos,cont)
+                dias = contarDias(video)
+                if dias >= diasMayor:
+                    resultado = [video, diasMayor]
+                cont += 1
+            inicio = count + 1
+        else:
+            inicio += 1
+            resultado = 'No se encontró la categoria. '
+    return resultado
 
+
+def contarDias(video):
+
+    listaPos = video
+    primerDia = listaPos['publish_time']
+    ultimoDia = listaPos['trending_date']
+
+    pSeparado = primerDia.split('.')
+    pAño = lt.getElement( pSeparado,0)
+    pMes = lt.getElement( pSeparado,2)
+    pDia = lt.getElement( pSeparado,1)
+    diaPubli = date(int(pAño),int(pMes),int(pDia))
+
+    uDia = ultimoDia.split('T')
+    uSeparado = (lt.getElement(uDia,0)).split('-')
+    sAño = lt.getElement(uSeparado,0)
+    sMes = lt.getElement(uSeparado,1)
+    sDia = lt.getElement(uSeparado,2)
+    diaTrend =  date(int(sAño),int(sMes),int(sDia))
+
+    diferencia = diaTrend - diaPubli
+    resultado = diferencia.days
+    return resultado
+        
+
+    
 def getVideosByCountry(catalog, countryname):
     lista_videos_pais = []
     dict = {}
@@ -183,6 +232,8 @@ def cmpByIdCategory(cat1,cat2):
         return -1
     else:
         return 1
+
+
 
 
 # Funciones de ordenamiento

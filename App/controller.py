@@ -88,7 +88,7 @@ def getVideosByCategory(catalog, category_name):
     """
     Retorna los videos de una categoría
     """
-    category = model.VideosByCategory(catalog, category_name)
+    category = model.getVideosByCategory(catalog, category_name)
     return category
 
 def getVideosByCountry(catalog, countryname):
