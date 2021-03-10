@@ -188,7 +188,7 @@ while True:
             print("No se encontraron videos")
         else:
             printCountryData(country[0], country[1], countryname)
-            
+
     elif int(inputs[0]) == 5:
         category_name = input("Ingrese la categoría: ")
         category = controller.getVideosByCategory(catalog, category_name)

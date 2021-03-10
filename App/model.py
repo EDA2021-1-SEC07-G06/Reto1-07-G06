@@ -68,9 +68,6 @@ def addVideo(catalog,video):
     # Cada categoria, se crea en la lista de videos del catalogo, y se
 
     # crea un video en la lista de dicha categoria (apuntador al video)
-    
-    
-
     addVideosCategoria(catalog, categoriaid, video)
     
 
@@ -126,33 +123,33 @@ def getVideosByCountry(catalog, countryname):
     dict = {}
     dict_repeticiones = {}
 
-    for video in catalog["videos"]["elements"]:
+    for video in lt.iterator(catalog["videos"]):
         if video["country"] == countryname:
             dict["video"] = video["title"]
             dict["canal"] = video["channel_title"]
             dict["id"] = video["video_id"]
+            lista_videos_pais.append(dict)
             if video["video_id"] not in dict_repeticiones:
                 dict_repeticiones[video["video_id"]] = 1
             else:
                 dict_repeticiones[video["video_id"]] += 1
-        lista_videos_pais.append(dict)
-        
-    print(lista_videos_pais)
+            dict = {}
+
     mas_trending = ""
     dias_trending = 0
     for video in dict_repeticiones:
         if dict_repeticiones[video] > dias_trending:
             dias_trending = dict_repeticiones[video]
             mas_trending = video
-    
+
     for pos in range (0,len(lista_videos_pais)):
-        print(lista_videos_pais[pos]["id"] + " ->xxx")
-        print(mas_trending + " --> aaa")
         if lista_videos_pais[pos]["id"] == mas_trending:
-            return (video, dias_trending)
+            return (lista_videos_pais[pos], dias_trending)
 
 def getVideosByLikes(catalog, n, countryname, tag):
-    pass
+    for video in lt.iterator(catalog["videos"]):
+        if video["country"] == countryname:
+    
 
 # Funciones utilizadas para comparar elementos dentro de una lista
    
