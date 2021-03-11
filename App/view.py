@@ -204,7 +204,7 @@ while True:
     elif int(inputs[0]) == 6:
         tag = input("Ingrese el tag a consultar: ")
         countryname = input("Nombre del país: ")
-        n = input("Ingrese el número de videos que quiere listar")
+        n = int(input("Ingrese el número de videos que quiere listar: "))
         mas_likes = controller.getVideosByLikes(catalog, n, countryname, tag)
         printTagData(video)
 

@@ -281,8 +281,8 @@ def getInfoVideos(lista1, lista2, lista3):
     pos = 0
     for elemento in lista2:
         for d in lista1:
-            if lista1[d]["id"] == lista2[elemento] and lista1[d]["likes"] == lista3[elemento]:
-                lista_final.append(lista1[elemento])
+            if d["id"] == lista2[elemento] and d["likes"] == lista3[elemento]:
+                lista_final.append(d)
     
     return lista_final
 
