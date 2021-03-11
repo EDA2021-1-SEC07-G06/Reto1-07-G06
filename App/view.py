@@ -106,7 +106,7 @@ def printTagData(videos):
     if size:
         print("\n Estos son los mejores videos: \n")
         for video in range (0, len(videos)):
-            print( '\nFecha de tendencia: ' + videos[video]['trending_date'] + 
+            print( 'Fecha de tendencia: ' + videos[video]['trending_date'] + 
                    ' \nTitulo: ' + videos[video]['title'] + ' \nCanal: ' + videos[video]['cannel_title'] +
                    ' \nTiempo de publicación: ' + videos[video]['publish_time'] +
                    ' \nVistas: ' +videos[video]['views'] + ' \nLikes: ' +videos[video]['likes'] + 
