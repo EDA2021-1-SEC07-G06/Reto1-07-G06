@@ -140,7 +140,6 @@ def getTrendingVideos(catalog, category_name, country, n):
                 listaFinal = lt.subList(listaOrdenada,0,int(n))
 
         inicio += 1
-        
 
     return listaFinal
 
@@ -278,11 +277,10 @@ def getVideosByLikes(catalog, n, countryname, tag):
 
 def getInfoVideos(lista1, lista2, lista3):
     lista_final = []
-    pos = 0
     for elemento in lista2:
         for d in lista1:
-            if d["id"] == lista2[elemento] and d["likes"] == lista3[elemento]:
-                lista_final.append(d)
+            if lista1[d]["id"] == lista2[elemento] and lista1[d]["likes"] == lista3[elemento]:
+                lista_final.append(lista1[d])
     
     return lista_final
 
