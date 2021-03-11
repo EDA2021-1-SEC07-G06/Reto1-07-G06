@@ -230,7 +230,7 @@ def getVideosByCountry(catalog, countryname):
             return (lista_videos_pais[pos], dias_trending)
 
 def getVideosByLikes(catalog, n, countryname, tag):
-    lista_videos_pais = []
+    list_videos_pais = []
     dict = {}
     lista_videos_likes = []
 
@@ -244,32 +244,48 @@ def getVideosByLikes(catalog, n, countryname, tag):
                 dict["vistas"] = video["views"]
                 dict["likes"] = video["likes"]
                 dict["tags"] = video["tags"]
-                lista_videos_likes.append(video["likes"])
-                lista_videos_pais.append(dict)
+                lista_videos_likes.append((video["likes"],video["video_id"]))
+                list_videos_pais.append(dict)
                 dict = {}
     
     lista_videos_likes.sort()
 
+    lista_id_elegido = []
+    lista_likes_elegido = []
+
     pos = len(lista_videos_likes)- 1
     x = len(lista_videos_likes) - n
-    likes_n_videos = []
 
     if x > 0:
-        while pos >= x:
-            likes_n_videos.append(lista_videos_likes[pos]["likes"])
+        while pos >= x and x >= 0:
+            if lista_videos_likes[pos][1] not in lista_id_elegido:
+                lista_id_elegido.append(lista_videos_likes[pos][1])
+                lista_likes_elegido.append(lista_videos_likes[pos][0])
+            else:
+                x -= 1
             pos -= 1
+            
     else:
         while pos >= 0:
-            
+            if lista_videos_likes[pos][1] not in lista_id_elegido:
+                lista_id_elegido.append(lista_videos_likes[pos][1])
+                lista_likes_elegido.append(lista_videos_likes[pos][0])
             pos -= 1
 
+    respuesta = getInfoVideos(list_videos_pais, lista_id_elegido, lista_likes_elegido)
+    return respuesta
+    
 
-        
+def getInfoVideos(lista1, lista2, lista3):
+    lista_final = []
+    pos = 0
+    for elemento in lista2:
+        for d in lista1:
+            if lista1[d]["id"] == lista2[elemento] and lista1[d]["likes"] == lista3[elemento]:
+                lista_final.append(lista1[elemento])
+    
+    return lista_final
 
-    
-    #lista dict con solo la info de las n posiciones y return
-    
-    
 
 # Funciones utilizadas para comparar elementos dentro de una lista
    
