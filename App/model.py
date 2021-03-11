@@ -238,11 +238,13 @@ def getVideosByLikes(catalog, n, countryname, tag):
             if tag in video["tags"]:
                 dict["id"] = video["video_id"]
                 dict["title"] = video["title"]
-                dict["canal"] = video["channel_title"]
-                dict["publicación"] = video["publish_time"]
-                dict["vistas"] = video["views"]
+                dict["cannel_title"] = video["channel_title"]
+                dict["publish_time"] = video["publish_time"]
+                dict["views"] = video["views"]
                 dict["likes"] = video["likes"]
+                dict["dislikes"] = video["dislikes"]
                 dict["tags"] = video["tags"]
+                dict["trending_date"] = video["trending_date"]
                 lista_videos_likes.append((video["likes"],video["video_id"]))
                 list_videos_pais.append(dict)
                 dict = {}
@@ -277,8 +279,8 @@ def getVideosByLikes(catalog, n, countryname, tag):
 
 def getInfoVideos(lista1, lista2, lista3):
     lista_final = []
-    for elemento in lista2:
-        for d in lista1:
+    for elemento in range(0,len(lista2)):
+        for d in range(0, len(lista1)):
             if lista1[d]["id"] == lista2[elemento] and lista1[d]["likes"] == lista3[elemento]:
                 lista_final.append(lista1[d])
     

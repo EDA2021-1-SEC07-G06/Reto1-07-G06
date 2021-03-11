@@ -102,15 +102,15 @@ def printTrendingVideos(videos):
 
 
 def printTagData(videos):
-    size = lt.size(videos)
+    size = len(videos)
     if size:
-        print(' Estos son los mejores videos: ')
-        for video in lt.iterator(videos):
-            print( 'Fecha de tendencia: ' + video['trending_date'] + 
-                   ' Titulo: ' + video['title'] + '  Canal: ' + video['cannel_title'] +
-                   ' Tiempo de publicación: ' + video['publish_time'] +
-                   ' Vistas: ' +video['views'] + ' Likes: ' +video['likes'] + 
-                   ' Dislikes: ' + video['dislikes'] + ' Tags: ' + video['tags'])
+        print("\n Estos son los mejores videos: \n")
+        for video in range (0, len(videos)):
+            print( '\nFecha de tendencia: ' + videos[video]['trending_date'] + 
+                   ' \nTitulo: ' + videos[video]['title'] + ' \nCanal: ' + videos[video]['cannel_title'] +
+                   ' \nTiempo de publicación: ' + videos[video]['publish_time'] +
+                   ' \nVistas: ' +videos[video]['views'] + ' \nLikes: ' +videos[video]['likes'] + 
+                   ' \nDislikes: ' + videos[video]['dislikes'] + ' \nTags: ' + videos[video]['tags'] + "\n")
     else:
         print('No se encontraron videos')
 
@@ -206,7 +206,7 @@ while True:
         countryname = input("Nombre del país: ")
         n = int(input("Ingrese el número de videos que quiere listar: "))
         mas_likes = controller.getVideosByLikes(catalog, n, countryname, tag)
-        printTagData(video)
+        printTagData(mas_likes)
 
     else:
         sys.exit(0)
